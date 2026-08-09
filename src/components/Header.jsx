@@ -62,11 +62,11 @@ export const Header = ({ activePage, setActivePage }) => {
 
   return (
     <header className="main-header">
-      <div className="container header-main-wrapper" style={{ paddingTop: '0.85rem' }}>
+      <div className="container header-main-wrapper">
         <div className="header-brand-row">
-          {/* Left: Food Commission Seal on the Far Left */}
+          {/* Left: Food Commission Seal & Title */}
           <div className="brand-group" onClick={() => handleNavClick('home')} style={{ cursor: 'pointer' }}>
-            <div className="brand-logo-card" style={{ width: '48px', height: '48px', borderColor: 'rgba(217, 150, 0, 0.4)' }}>
+            <div className="brand-logo-card">
               <img 
                 src="/images/apsfc_official_logo.png" 
                 alt="AP State Food Commission Official Seal" 
@@ -75,22 +75,21 @@ export const Header = ({ activePage, setActivePage }) => {
             </div>
 
             <div className="brand-text">
-              <div style={{ fontSize: '0.76rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                {t.govtName} | <span style={{ color: '#475569', fontWeight: 600 }}>{t.deptName}</span>
+              <div className="brand-dept-tag">
+                {t.govtName} | <span>{t.deptName}</span>
               </div>
-              <h1 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#005A2B', lineHeight: '1.2' }}>
+              <h1 className="brand-main-title">
                 {t.commissionTitle}
               </h1>
-              <p style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 500 }}>
+              <p className="brand-sub-tag">
                 {t.commissionTagline}
               </p>
             </div>
           </div>
 
-          {/* Right: Government of AP Emblem on the Far Right + Utility Pills */}
-          <div className="header-right-utilities hidden-mobile" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            {/* Action Pills */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          {/* Right: Government of AP Emblem & Utility Pills (Desktop) */}
+          <div className="header-right-utilities hidden-mobile">
+            <div className="utility-pills-row">
               <span className="live-pulse">
                 <span className="pulse-dot"></span> e-PDS ONLINE
               </span>
@@ -104,21 +103,7 @@ export const Header = ({ activePage, setActivePage }) => {
                 <span>{isPlayingAudio ? (lang === 'te' ? 'ఆపు' : 'Stop Audio') : (lang === 'te' ? 'వాయిస్ సహాయం' : 'Voice Guide')}</span>
               </button>
 
-              <a 
-                href="tel:1967" 
-                style={{ 
-                  fontSize: '0.8rem', 
-                  color: '#005A2B', 
-                  fontWeight: 700, 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.35rem',
-                  background: '#e8f5ed',
-                  padding: '0.28rem 0.75rem',
-                  borderRadius: '9999px',
-                  border: '1px solid rgba(0,90,43,0.2)'
-                }}
-              >
+              <a href="tel:1967" className="helpline-badge">
                 <PhoneCall size={13} />
                 Helpline: 1967
               </a>
@@ -128,8 +113,7 @@ export const Header = ({ activePage, setActivePage }) => {
               </button>
             </div>
 
-            {/* Government of Andhra Pradesh Emblem on the Far Right */}
-            <div className="brand-logo-card" style={{ width: '48px', height: '48px', marginLeft: '0.4rem' }}>
+            <div className="brand-logo-card ap-govt-logo-card">
               <img 
                 src="/images/ap_govt_emblem.png" 
                 alt="Government of Andhra Pradesh Emblem" 
@@ -148,8 +132,22 @@ export const Header = ({ activePage, setActivePage }) => {
         </div>
 
         {/* Clean Navigation Links Row */}
-        <nav className="header-nav-row" style={{ marginTop: '0.4rem' }}>
+        <nav className="header-nav-row">
           <ul className={`clean-nav-bar ${mobileOpen ? 'mobile-open' : ''}`}>
+            {/* Mobile Utility Actions Box */}
+            <li className="mobile-utility-strip">
+              <a href="tel:1967" className="helpline-badge">
+                <PhoneCall size={13} /> 1967
+              </a>
+              <button className="lang-toggle-btn" onClick={toggleLanguage}>
+                <Globe size={13} /> {t.langSwitch}
+              </button>
+              <button className="audio-speech-btn" onClick={handleSpeechRights}>
+                <Volume2 size={13} color="#005A2B" />
+                <span>{isPlayingAudio ? 'Stop' : 'Voice'}</span>
+              </button>
+            </li>
+
             {navItems.map((item) => {
               const IconComp = item.icon;
               const isActive = activePage === item.id;
